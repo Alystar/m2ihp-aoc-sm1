@@ -1,3 +1,5 @@
+#include <string.h>
+
 void
 sgemm_c (int n,
 		 float a [n][n],
@@ -8,28 +10,29 @@ sgemm_c (int n,
 	int j;
 	int k;
 
-	for (i = 0; i < n; ++i)
-	{
-		for (j = 0; j < n; ++j)
-		{
-			c [i][j] = 0.0f;
-		}
-	}
+	int l;
+	int m;
+	int o;
 
-	for (k = 0; k < n; ++k)
+	memset (c, 0, n * n * sizeof (float) );
+
+	for (k = 0; k+3 < n; k+=4)
 	{
-		for (i = 0; i < n; ++i)
+		for (i = 0; i+3 < n; i+=4)
 		{
-			for (j = 0; j+3 < n; j += 4)
+			for (j = 0; j+3 < n; j+=4)
 			{
-				c [i][j] += a [i][k] * b [k][j];
-				c [i][j + 1] += a [i][k] * b [k][j+1];
-				c [i][j + 2] += a [i][k] * b [k][j+2];
-				c [i][j + 3] += a [i][k] * b [k][j+3];
+				for (l = k; l < k+4; ++l)
+				{
+					for (m = i; m < i+4; ++m)
+					{
+						for (o = j; o < j+4; ++o)
+						{
+							c [m][o] += a [m][l] * b [l][o];
+						}
+					}
+				}
 			}
-
-			for (; j < n; j++)
-				c [i][j] += a [i][k] * b [k][j];
 		}
 	}
 }
