@@ -5,7 +5,7 @@
 /******************************************************************************/
 
 extern void sgemm_c (int n, float ** a, float ** b, float ** c);
-extern void sgemm_f90_ (int * n, float ** a, float ** b, float ** c);
+extern void sgemm_f90_ (int * n, float a [*n][*n], float b [*n][*n], float c [*n][*n]);
 extern uint64_t rdtsc ( );
 
 /******************************************************************************/

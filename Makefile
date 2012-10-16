@@ -9,6 +9,8 @@ LDFLAGS=
 
 OBJS=driver.o rdtsc.o kernel_c.o kernel_f.o
 
+.PHONY: all clean
+
 all: sgemm
 
 sgemm: $(OBJS)
@@ -18,7 +20,10 @@ rdtsc.o: rdtsc.c
 	gcc -c rdtsc.c
 
 kernel_c.o: kernel_c.c
-	$(CC) $(CFLAGS) -c -o $@ $<
+	$(CC) $(CFLAGS_KERNEL) -c -o $@ $<
 
 kernel_f.o: kernel_f.f90
-	$(FC) $(FFLAGS) -c -o $@ $<
+	$(FC) $(FFLAGS_KERNEL) -c -o $@ $<
+
+clean:
+	rm -f $(OBJS) sgemm
