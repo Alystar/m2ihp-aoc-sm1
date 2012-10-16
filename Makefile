@@ -1,9 +1,9 @@
-CC=icc
-FC=ifort
+CC=gcc
+FC=gfortran
 
-CFLAGS=-Wall -O2
-CFLAGS_KERNEL=-g -Wall -O2
-FFLAGS_KERNEL=-g -Wall -O2
+CFLAGS=-Wall -O3 -Ofast
+CFLAGS_KERNEL=-g -Wall -O3 -Ofast
+FFLAGS_KERNEL=-g -Wall -O3
 
 LDFLAGS=-pg
 
