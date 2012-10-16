@@ -18,7 +18,7 @@ rdtsc.o: rdtsc.c
 	gcc -c rdtsc.c
 
 kernel_c.o: kernel_c.c
-	$(CC) $(CFLAGS) -o $@ $<
+	$(CC) $(CFLAGS) -c -o $@ $<
 
-kernel_f.o: kernel_f.c
-	$(FC) $(FFLAGS) -o $@ $<
+kernel_f.o: kernel_f.f90
+	$(FC) $(FFLAGS) -c -o $@ $<

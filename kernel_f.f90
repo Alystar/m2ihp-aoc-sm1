@@ -1,8 +1,8 @@
-SUBROUTINE sgemm_f90
+SUBROUTINE sgemm_f90 (n, a, b, c)
 	IMPLICIT NONE
 
 	REAL a (n, n), b (n, n), c (n, n)
-	INTEGER i, j, k
+	INTEGER n, i, j, k
 
 	DO i = 1, n
 		DO j = 1, n

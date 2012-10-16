@@ -4,8 +4,8 @@
 
 /******************************************************************************/
 
-extern void sgemm_c (int, float [][], float [][], float [][]);
-extern void sgemm_f90_ (int *, float [][], float [][], float [][]);
+extern void sgemm_c (int n, float ** a, float ** b, float ** c);
+extern void sgemm_f90_ (int * n, float ** a, float ** b, float ** c);
 extern uint64_t rdtsc ( );
 
 /******************************************************************************/
@@ -14,9 +14,9 @@ static void
 init_array (int n,
 			float a [n][n])
 {
-	int i;
+	int i, j;
 
-	for (i = 0; i < n, i++)
+	for (i = 0; i < n; i++)
 	{
 		for (j = 0; j < n; j++)
 		{
@@ -27,7 +27,8 @@ init_array (int n,
 
 static void
 print_array (int n,
-			 float a [n][n])
+			 float a [n][n],
+			 const char * s)
 {
 	int i;
 	int j;
@@ -65,11 +66,14 @@ main (int argc, char * argv [])
 	float	* pb = malloc (n * n * sizeof *pb );
 	float	* pc = malloc (n * n * sizeof *pc );
 
-	float	* a [n] = (float (*) [n]) pa;
-	float	* b [n] = (float (*) [n]) pb;
-	float	* c [n] = (float (*) [n]) pc;
+	float	(* a) [n] = (float (*) [n]) pa;
+	float	(* b) [n] = (float (*) [n]) pb;
+	float	(* c) [n] = (float (*) [n]) pc;
 
 	/**********************************************************************/
+
+	init_array (n, a);
+	init_array (n, b);
 
 	/**********************************************************************/
 
@@ -91,13 +95,13 @@ main (int argc, char * argv [])
 
 	/**********************************************************************/
 
-	sgemm_f90_ (&n, a, b, c)
+	sgemm_f90_ (&n, a, b, c);
 
 	t1 = rdtsc ();
 
 	for (i = 0; i < r; i++)
 	{
-		sgemm_c (&n, a, b, c);
+		sgemm_f90_ (&n, a, b, c);
 	}
 
 	t2 = rdtsc ();
