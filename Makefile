@@ -1,11 +1,11 @@
-CC=gcc
-FC=gfortran
+CC=icc
+FC=ifort
 
 CFLAGS=-Wall -O2
 CFLAGS_KERNEL=-g -Wall -O2
 FFLAGS_KERNEL=-g -Wall -O2
 
-LDFLAGS=
+LDFLAGS=-pg
 
 OBJS=driver.o rdtsc.o kernel_c.o kernel_f.o
 
